@@ -6,6 +6,10 @@ button {
   border: black solid 2px;
   outline: none;
   cursor: pointer;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background-color: #d1c145;
 }
 
 body {
@@ -16,8 +20,8 @@ body {
 }
 
 .background {
-  width: 50%;
-  height: 70%;
+  width: 600px;
+  height: 400px;
   background-image: url("img/background.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -30,20 +34,20 @@ body {
 
 header {
   height: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .play-btn {
-  width: 32px;
-  height: 32px;
-  margin: 8px 0 4px 0;
-  border-radius: 8px;
-  background-color: #d1c145;
+  position: absolute;
+  top: 18px;
+  left: 300px;
+  transform: translateX(-50%);
 }
 
 .timer {
+  position: absolute;
+  top: 60px;
+  left: 300px;
+  transform: translateX(-50%);
   width: 80px;
   height: 32px;
   background-color: #f8f7de;
@@ -58,14 +62,18 @@ header {
 }
 
 .carrot-counter {
-  width: 32px;
-  height: 32px;
+  position: absolute;
+  top: 96px;
+  left: 300px;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 36px;
   background-color: #d08752;
   border-radius: 50%;
   border: black solid 2px;
   text-align: center;
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 28px;
+  line-height: 28px;
   color: white;
   cursor: context-menu;
 }
@@ -78,15 +86,44 @@ main {
   width: 62px;
   height: 62px;
   position: absolute;
+  top: 0;
+  left: 0;
   background-image: url("img/carrot.png");
   background-repeat: no-repeat;
   background-size: contain;
+  cursor: pointer;
 }
 .bug {
   width: 38px;
   height: 38px;
   position: absolute;
+  top: 0;
+  left: 0;
   background-image: url("img/bug.png");
   background-repeat: no-repeat;
   background-size: contain;
+  cursor: pointer;
+}
+
+/* Messages */
+.message-container {
+  width: 300px;
+  height: 90px;
+  background-color: rgba(0, 0, 0, 0.6);
+  margin: auto;
+  position: relative;
+  top: 50px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.replay-btn {
+  margin-top: 8px;
+}
+
+.message-text {
+  font-size: 24px;
+  color: white;
 }
