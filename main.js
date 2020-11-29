@@ -2,11 +2,11 @@
 
 
 // 사운드 삽입
-let soundAlert = new Audio('./sound/alert.wav');
-let soundBGM = new Audio('./sound/bg.mp3');
-let soundBug = new Audio('./sound/bug_pull.mp3');
-let soundCarrot = new Audio('./sound/carrot_pull.mp3')
-let soundWin = new Audio('./sound/game_win.mp3')
+let soundAlert = new Audio('sound/alert.wav');
+let soundBGM = new Audio('sound/bg.mp3');
+let soundBug = new Audio('sound/bug_pull.mp3');
+let soundCarrot = new Audio('sound/carrot_pull.mp3')
+let soundWin = new Audio('sound/game_win.mp3')
 
 // 버튼을 누르면 게임 시작
 const playBtn = document.querySelector('.play-btn');
