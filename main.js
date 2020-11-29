@@ -13,7 +13,7 @@ const playBtn = document.querySelector('.play-btn');
 const timer = document.querySelector('.timer');
 let timerId;
 let time;
-let initialCarrotNum = 3;
+let initialCarrotNum = 10;
 let carrotNum = initialCarrotNum;
 playBtn.addEventListener('click', event => {
     gameStart(event);
@@ -96,7 +96,7 @@ function setTimer() {
     if (time <= 0) {
         clearInterval(timerId);
         timer.innerText = `00:00`;
-        changeToPlayIcon();
+        lostMessage();
     }
     else {
         timer.innerText = `0:${time}`;
