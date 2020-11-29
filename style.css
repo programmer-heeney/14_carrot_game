@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
+button {
+  border: black solid 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  margin: 0;
+}
+
+.background {
+  width: 50%;
+  height: 60%;
+  background-image: url("img/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+}
+
+header {
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.start-btn {
+  width: 32px;
+  height: 32px;
+  margin: 8px 0 4px 0;
+  border-radius: 8px;
+  background-color: #d1c145;
+}
+
+.timer {
+  width: 80px;
+  height: 32px;
+  background-color: #f8f7de;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  border: black solid 4px;
+  text-align: center;
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: bold;
+  cursor: context-menu;
+}
+
+.carrot-counter {
+  width: 32px;
+  height: 32px;
+  background-color: #d08752;
+  border-radius: 50%;
+  border: black solid 2px;
+  text-align: center;
+  font-size: 24px;
+  line-height: 24px;
+  color: white;
+  cursor: context-menu;
+}
+
+/* carrots and bugs */
+main {
+}
