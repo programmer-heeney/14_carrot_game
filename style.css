@@ -46,9 +46,6 @@ header {
   margin-top: 18px;
 }
 
-.play-btn:hover {
-}
-
 .timer {
   position: absolute;
   top: 60px;
@@ -95,7 +92,6 @@ header {
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;
-  z-index: -1;
 }
 
 .bug {
@@ -144,4 +140,21 @@ header {
   height: 200px;
   background-color: rgba(255, 255, 255, 0);
   z-index: 9999;
+}
+
+.how-to-play {
+  background-image: url(img/howtoplay.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.start-btn {
+  width: 150px;
+  height: 50px;
+  position: absolute;
+  top: 155px;
+  left: 60px;
+  background-color: white;
+  font-size: 20px;
+  font-weight: bolder;
 }

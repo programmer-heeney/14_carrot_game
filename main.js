@@ -2,11 +2,11 @@
 
 
 // 사운드 삽입
-let soundAlert = new Audio('../sound/alert.wav');
-let soundBGM = new Audio('../sound/bg.mp3');
-let soundBug = new Audio('../sound/bug_pull.mp3');
-let soundCarrot = new Audio('../sound/carrot_pull.mp3')
-let soundWin = new Audio('../sound/game_win.mp3')
+let soundAlert = new Audio('./sound/alert.wav');
+let soundBGM = new Audio('./sound/bg.mp3');
+let soundBug = new Audio('./sound/bug_pull.mp3');
+let soundCarrot = new Audio('./sound/carrot_pull.mp3')
+let soundWin = new Audio('./sound/game_win.mp3')
 
 // 버튼을 누르면 게임 시작
 const playBtn = document.querySelector('.play-btn');
@@ -79,8 +79,8 @@ function createBug() {
     return bug
 }
 // 캐럿카운터 넘버를 화면에 표시된 캐럿 수만큼 변경
+const carrotCounter = document.querySelector('.carrot-counter');
 function displayCarrotNum(carrotNum) {
-    const carrotCounter = document.querySelector('.carrot-counter');
     carrotCounter.innerText = carrotNum;
 }
 // 타이머는 0:10 으로 변경
@@ -173,3 +173,25 @@ message.addEventListener('click', event => {
         gameStart(event);
     }
 })
+
+// 게임 설명
+const background = document.querySelector('.background');
+window.onload = function howToPlay() {
+    background.classList.add('how-to-play');
+    playBtn.style.display = 'none';
+    timer.style.display = 'none';
+    carrotCounter.style.display = 'none';
+
+    const startBtn = document.createElement('button');
+    startBtn.setAttribute('class', 'start-btn');
+    startBtn.innerText = '✨START✨'
+    background.appendChild(startBtn);
+
+    startBtn.addEventListener('click', event => {
+        background.classList.remove('how-to-play');
+        playBtn.style.display = 'inline';
+        timer.style.display = 'inline';
+        carrotCounter.style.display = 'inline';
+        startBtn.remove();
+    })
+}
