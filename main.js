@@ -1,5 +1,13 @@
 'use strict';
 
+
+// 사운드 삽입
+let soundAlert = new Audio('./sound/alert.wav');
+let soundBGM = new Audio('./sound/bg.mp3');
+let soundBug = new Audio('./sound/bug_pull.mp3');
+let soundCarrot = new Audio('./sound/carrot_pull.mp3')
+let soundWin = new Audio('./sound/game_win.mp3')
+
 // 버튼을 누르면 게임 시작
 const playBtn = document.querySelector('.play-btn');
 const timer = document.querySelector('.timer');
@@ -12,6 +20,7 @@ playBtn.addEventListener('click', event => {
 })
 // 게임 시작
 function gameStart(event) {
+    soundBGM.play();
     changeBtnIcon(event);
 }
 // 버튼이 플레이에서 스탑 아이콘으로 변경
@@ -100,6 +109,7 @@ items.addEventListener('click', event => {
     const dataId = event.target.dataset.id;
     //carrot
     if (dataId === '0') {
+        soundCarrot.play();
         event.target.remove();
         carrotNum--;
         displayCarrotNum(carrotNum);
@@ -107,6 +117,7 @@ items.addEventListener('click', event => {
     }
     //bug
     if (dataId === '1') {
+        soundBug.play();
         lostMessage();
     }
 })
@@ -114,6 +125,9 @@ items.addEventListener('click', event => {
 const messages = document.querySelector('.messages');
 const message = document.createElement('div');
 function lostMessage() {
+    soundBGM.pause();
+    soundAlert.play();
+    messages.classList.add('mask');
     const message = messageContainer();
     playBtn.style.display = 'none';
     message.innerHTML = `
@@ -125,6 +139,9 @@ function lostMessage() {
 // 시간내 성공하면 YOU WON 메시지 팝업
 function wonMessage() {
     if (carrotNum === 0) {
+        soundBGM.pause();
+        soundWin.play();
+        messages.classList.add('mask');
         const message = messageContainer();
         playBtn.style.display = 'none';
         message.innerHTML = `
@@ -142,6 +159,11 @@ function messageContainer() {
 
 // 리플레이 버튼 누르면 게임 스타트
 message.addEventListener('click', event => {
+    soundWin.pause();
+    soundWin.currentTime = 0;
+    soundAlert.pause();
+    soundAlert.currentTime = 0;
+    messages.classList.remove('mask');
     const dataId = event.target.dataset.key;
     if (dataId) {
         playBtn.style.display = 'inline'

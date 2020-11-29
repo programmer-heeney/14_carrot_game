@@ -12,6 +12,10 @@ button {
   background-color: #d1c145;
 }
 
+button:hover {
+  transform: scale(1.1);
+}
+
 body {
   width: 100vw;
   height: 100vh;
@@ -34,13 +38,15 @@ body {
 
 header {
   height: 50%;
+  display: flex;
+  justify-content: center;
 }
 
 .play-btn {
-  position: absolute;
-  top: 18px;
-  left: 300px;
-  transform: translateX(-50%);
+  margin-top: 18px;
+}
+
+.play-btn:hover {
 }
 
 .timer {
@@ -79,9 +85,6 @@ header {
 }
 
 /* carrots and bugs */
-main {
-}
-
 .carrot {
   width: 62px;
   height: 62px;
@@ -92,7 +95,9 @@ main {
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;
+  z-index: -1;
 }
+
 .bug {
   width: 38px;
   height: 38px;
@@ -103,6 +108,12 @@ main {
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;
+  z-index: -1;
+}
+
+.carrot:hover,
+.bug:hover {
+  transform: scale(1.2);
 }
 
 /* Messages */
@@ -126,4 +137,11 @@ main {
 .message-text {
   font-size: 24px;
   color: white;
+}
+
+.mask {
+  width: 100%;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0);
+  z-index: 9999;
 }
