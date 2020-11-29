@@ -187,7 +187,11 @@ window.onload = function howToPlay() {
     startBtn.innerText = '✨START✨'
     background.appendChild(startBtn);
 
-    startBtn.addEventListener('click', event => {
+    startBtn.addEventListener('mouseover', () => {
+        soundCarrot.play();
+    })
+
+    startBtn.addEventListener('click', () => {
         background.classList.remove('how-to-play');
         playBtn.style.display = 'inline';
         timer.style.display = 'inline';
