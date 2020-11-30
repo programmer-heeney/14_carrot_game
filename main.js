@@ -27,7 +27,7 @@ function gameStart(event) {
 function changeBtnIcon(event) {
     const targetClass = event.target.classList
     if (targetClass.contains('fa-stop') || targetClass.contains('stop')) {
-        lostMessage();
+        readyMessage();
     }
     else {
         changeToStopIcon();
@@ -96,6 +96,7 @@ function setTimer() {
     if (time <= 0) {
         clearInterval(timerId);
         timer.innerText = `00:00`;
+        // 시간내 못하면 YOU LOST 메시지 팝업
         lostMessage();
     }
     else {
@@ -127,28 +128,31 @@ const message = document.createElement('div');
 function lostMessage() {
     soundBGM.pause();
     soundAlert.play();
-    messages.classList.add('mask');
-    const message = messageContainer();
-    playBtn.style.display = 'none';
-    message.innerHTML = `
-    <button class='replay-btn' data-key=0><i class="fas fa-redo" data-key=0></i></button>
-    <span class='message-text'>YOU LOST💩</span>`
-    clearInterval(timerId);
+    popUp('YOU LOST💩');
 }
-// 시간내 못하면 YOU LOST 메시지 팝업
 // 시간내 성공하면 YOU WON 메시지 팝업
 function wonMessage() {
     if (carrotNum === 0) {
         soundBGM.pause();
         soundWin.play();
-        messages.classList.add('mask');
-        const message = messageContainer();
-        playBtn.style.display = 'none';
-        message.innerHTML = `
-        <button class='replay-btn' data-key=0><i class="fas fa-redo" data-key=0></i></button>
-        <span class='message-text'>YOU WON🎉</span>`
-        clearInterval(timerId);
+        popUp('YOU WON🎉');
     }
+}
+// 정지 버튼 클릭시 READY? 메시지 팝업
+function readyMessage() {
+    soundBGM.pause();
+    soundAlert.play();
+    popUp('READY❓');
+}
+
+function popUp(popUpText) {
+    messages.classList.add('mask');
+    const message = messageContainer();
+    playBtn.style.display = 'none';
+    message.innerHTML = `
+    <button class='replay-btn' data-key=0><i class="fas fa-redo" data-key=0></i></button>
+    <span class='message-text'>${popUpText}</span>`
+    clearInterval(timerId);
 }
 
 function messageContainer() {
