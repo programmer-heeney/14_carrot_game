@@ -163,9 +163,9 @@ message.addEventListener('click', event => {
     soundWin.currentTime = 0;
     soundAlert.pause();
     soundAlert.currentTime = 0;
-    messages.classList.remove('mask');
     const dataId = event.target.dataset.key;
     if (dataId) {
+        messages.classList.remove('mask');
         playBtn.style.display = 'inline'
         message.remove();
         items.innerHTML = ``;
