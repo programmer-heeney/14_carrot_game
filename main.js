@@ -106,12 +106,30 @@ function setTimer() {
 }
 
 // 캐럿 누르면 삭제
+let initialLevel = 1;
+let level = initialLevel;
+let timerId2;
+let timerId3;
+const levelContainer = document.querySelector('.level')
 items.addEventListener('click', event => {
     const dataId = event.target.dataset.id;
     //carrot
     if (dataId === '0') {
         soundCarrot.play();
         event.target.remove();
+        const carrots = document.querySelectorAll('.carrot');
+        if (level === 2) {
+            timerId2 = setInterval(() => {
+                carrots.forEach((carrot) => {
+                    carrot.style.display = 'none';
+                })
+            }, 1000);
+            timerId3 = setInterval(() => {
+                carrots.forEach((carrot) => {
+                    carrot.style.display = 'inline'
+                })
+            }, 2000);
+        }
         carrotNum--;
         displayCarrotNum(carrotNum);
         wonMessage();
@@ -135,8 +153,19 @@ function wonMessage() {
     if (carrotNum === 0) {
         soundBGM.pause();
         soundWin.play();
-        popUp('YOU WON🎉');
+        if (level === 1) {
+            popUpLevel2();
+        }
+        if (level === 2) {
+            popUp('YOU WON🎉');
+            level = 0;
+        }
+        level++;
     }
+}
+// 레벨2
+function popUpLevel2() {
+    popUp('NEXT LEVEL2💨');
 }
 // 정지 버튼 클릭시 READY? 메시지 팝업
 function readyMessage() {
@@ -153,6 +182,8 @@ function popUp(popUpText) {
     <button class='replay-btn' data-key=0><i class="fas fa-redo" data-key=0></i></button>
     <span class='message-text'>${popUpText}</span>`
     clearInterval(timerId);
+    clearInterval(timerId2);
+    clearInterval(timerId3);
 }
 
 function messageContainer() {
@@ -173,6 +204,13 @@ message.addEventListener('click', event => {
         playBtn.style.display = 'inline'
         message.remove();
         items.innerHTML = ``;
+
+        if (level === 1) {
+            levelContainer.innerText = `LEVEL1`;
+        }
+        if (level === 2) {
+            levelContainer.innerText = `LEVEL2`;
+        }
         carrotNum = initialCarrotNum;
         gameStart(event);
     }
@@ -185,6 +223,7 @@ window.onload = function howToPlay() {
     playBtn.style.display = 'none';
     timer.style.display = 'none';
     carrotCounter.style.display = 'none';
+    levelContainer.style.display = 'none';
 
     const startBtn = document.createElement('button');
     startBtn.setAttribute('class', 'start-btn');
@@ -200,6 +239,7 @@ window.onload = function howToPlay() {
         playBtn.style.display = 'inline';
         timer.style.display = 'inline';
         carrotCounter.style.display = 'inline';
+        levelContainer.style.display = 'inline';
         startBtn.remove();
     })
 }
