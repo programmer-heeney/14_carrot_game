@@ -11,7 +11,7 @@ let soundWin = new Audio('sound/game_win.mp3')
 // 버튼을 누르면 게임 시작
 const playBtn = document.querySelector('.play-btn');
 const timer = document.querySelector('.timer');
-let timerId;
+let timerInterval;
 let time;
 let initialCarrotNum = 10;
 let carrotNum = initialCarrotNum;
@@ -85,16 +85,16 @@ function displayCarrotNum(carrotNum) {
 }
 // 타이머는 0:10 으로 변경
 function startTimer() {
-    if (timerId !== null) {
-        clearInterval(timerId);
+    if (timerInterval !== null) {
+        clearInterval(timerInterval);
     }
     if (playBtn.classList.contains('stop')) {
-        timerId = setInterval(setTimer, 1000);
+        timerInterval = setInterval(setTimer, 1000);
     }
 }
 function setTimer() {
     if (time <= 0) {
-        clearInterval(timerId);
+        clearInterval(timerInterval);
         timer.innerText = `00:00`;
         // 시간내 못하면 YOU LOST 메시지 팝업
         lostMessage();
@@ -108,8 +108,8 @@ function setTimer() {
 // 캐럿 누르면 삭제
 let initialLevel = 1;
 let level = initialLevel;
-let timerId2;
-let timerId3;
+let carrotBlinkingIntervalAppear;
+let carrotBlinkingIntervalDisappear;
 const levelContainer = document.querySelector('.level')
 items.addEventListener('click', event => {
     const dataId = event.target.dataset.id;
@@ -119,12 +119,12 @@ items.addEventListener('click', event => {
         event.target.remove();
         const carrots = document.querySelectorAll('.carrot');
         if (level === 2) {
-            timerId2 = setInterval(() => {
+            carrotBlinkingIntervalAppear = setInterval(() => {
                 carrots.forEach((carrot) => {
                     carrot.style.display = 'none';
                 })
             }, 1000);
-            timerId3 = setInterval(() => {
+            carrotBlinkingIntervalDisappear = setInterval(() => {
                 carrots.forEach((carrot) => {
                     carrot.style.display = 'inline'
                 })
@@ -181,9 +181,9 @@ function popUp(popUpText) {
     message.innerHTML = `
     <button class='replay-btn' data-key=0><i class="fas fa-redo" data-key=0></i></button>
     <span class='message-text'>${popUpText}</span>`
-    clearInterval(timerId);
-    clearInterval(timerId2);
-    clearInterval(timerId3);
+    clearInterval(timerInterval);
+    clearInterval(carrotBlinkingIntervalAppear);
+    clearInterval(carrotBlinkingIntervalDisappear);
 }
 
 function messageContainer() {
