@@ -23,26 +23,31 @@ body {
   margin: 0;
 }
 
-.background {
+.game {
   width: 600px;
   height: 400px;
   background-image: url("img/background.png");
   background-repeat: no-repeat;
   background-size: cover;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
   border-radius: 20px;
+  position: relative;
 }
 
-header {
+.game__header {
   height: 50%;
   display: flex;
   justify-content: center;
 }
 
-.level {
+.game__field {
+  height: 50%;
+  position: relative;
+}
+
+.game__level {
   width: 80px;
   height: 80px;
   background-color: salmon;
@@ -57,11 +62,11 @@ header {
   line-height: 72px;
 }
 
-.play-btn {
+.game__button {
   margin-top: 18px;
 }
 
-.timer {
+.game__timer {
   position: absolute;
   top: 60px;
   left: 300px;
@@ -79,7 +84,7 @@ header {
   cursor: context-menu;
 }
 
-.carrot-counter {
+.game__score {
   position: absolute;
   top: 96px;
   left: 300px;
@@ -98,29 +103,13 @@ header {
 
 /* carrots and bugs */
 .carrot {
-  width: 62px;
-  height: 62px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-image: url("img/carrot.png");
-  background-repeat: no-repeat;
-  background-size: contain;
+  width: 70px;
   cursor: pointer;
-  z-index: -1;
 }
 
 .bug {
-  width: 38px;
-  height: 38px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-image: url("img/bug.png");
-  background-repeat: no-repeat;
-  background-size: contain;
+  width: 50px;
   cursor: pointer;
-  z-index: -1;
 }
 
 .carrot:hover,
@@ -128,43 +117,43 @@ header {
   transform: scale(1.2);
 }
 
-/* Messages */
-.message-container {
-  width: 300px;
-  height: 90px;
+/* pop up */
+.pop-up {
+  width: 400px;
+  height: 140px;
   background-color: rgba(0, 0, 0, 0.6);
   margin: auto;
-  position: relative;
-  top: 50px;
   border-radius: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
+  padding: 20px;
+  transform: translateY(-150%);
 }
 
-.replay-btn {
-  margin-top: 8px;
+.pop-up--hide {
+  display: none;
 }
 
-.message-text {
+.pop-up__refresh {
+  width: 50px;
+  height: 50px;
   font-size: 24px;
+  border-radius: 50%;
+}
+
+.pop-up__text {
+  display: block;
+  font-size: 32px;
   color: white;
 }
 
-.mask {
-  width: 100%;
-  height: 200px;
-  background-color: rgba(255, 255, 255, 0.1);
-  z-index: 9999;
-}
-
+/* Tutorial */
 .how-to-play {
   background-image: url(img/howtoplay.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
 
-.start-btn {
+.game__start {
   width: 150px;
   height: 50px;
   position: absolute;
@@ -173,4 +162,9 @@ header {
   background-color: white;
   font-size: 20px;
   font-weight: bolder;
+  cursor: pointer;
+}
+
+.game__header--hide {
+  visibility: hidden;
 }
