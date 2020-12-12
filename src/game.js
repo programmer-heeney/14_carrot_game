@@ -5,9 +5,14 @@ export const Reason = Object.freeze({
     win: 'win',
     lose: 'lose',
     cancel: 'cancel',
+    levelUp: 'levelUp'
 })
 
 export class GameBuilder {
+    withGameFinalLevel(level) {
+        this.gameFinalLevel = level;
+        return this;
+    }
     withGameDuration(duration) {
         this.gameDuration = duration;
         return this;
@@ -25,6 +30,7 @@ export class GameBuilder {
 
     build() {
         return new Game(
+            this.gameFinalLevel,
             this.gameDuration,
             this.carrotCount,
             this.bugCount
@@ -33,10 +39,12 @@ export class GameBuilder {
 }
 
 class Game {
-    constructor(gameDuration, carrotCount, bugCount) {
+    constructor(gameFinalLevel, gameDuration, carrotCount, bugCount) {
+        this.gameFinalLevel = gameFinalLevel;
         this.gameDuration = gameDuration;
         this.carrotCount = carrotCount;
         this.bugCount = bugCount;
+        this.level = 1;
 
         this.gameTimer = document.querySelector('.game__timer');
         this.gameScore = document.querySelector('.game__score');
@@ -52,6 +60,8 @@ class Game {
         this.started = false;
         this.score = 0;
         this.timer = undefined;
+        this.carrotBlinkingIntervalAppear = undefined;
+        this.carrotBlinkingIntervaldisAppear = undefined;
 
         this.gameField = new Field(this.carrotCount, this.bugCount);
         this.gameField.setClickListener(this.onItemClick);
@@ -86,21 +96,17 @@ class Game {
         if (item === 'carrot') {
             this.score++;
             this.updateScoreBoard();
-            // const carrots = document.querySelectorAll('.carrot');
-            // if (level === 2) {
-            //     carrotBlinkingIntervalAppear = setInterval(() => {
-            //         carrots.forEach((carrot) => {
-            //             carrot.style.display = 'none';
-            //         })
-            //     }, 1000);
-            //     carrotBlinkingIntervalDisappear = setInterval(() => {
-            //         carrots.forEach((carrot) => {
-            //             carrot.style.display = 'inline'
-            //         })
-            //     }, 2000);
-            // }
+            if (this.level === 2) {
+                this.gameLevel2();
+            }
             if (this.score === this.carrotCount) {
-                this.stop(Reason.win);
+                if (this.level === this.gameFinalLevel) {
+                    this.level = 1;
+                    this.stop(Reason.win)
+                } else {
+                    this.level++;
+                    this.stop(Reason.levelUp);
+                }
             }
         } else if (item === 'bug') {
             this.stop(Reason.lose);
@@ -129,7 +135,7 @@ class Game {
         this.timer = setInterval(() => {
             if (remainingTimeSec <= 0) {
                 clearInterval(this.timer);
-                this.finishGame(this.carrotCount === this.score);
+                this.stop(this.carrotCount === this.score ? Reason.win : Reason.lose);
                 return;
             }
             this.updateTimerText(--remainingTimeSec);
@@ -137,6 +143,8 @@ class Game {
     }
     stopGameTimer() {
         clearInterval(this.timer);
+        clearInterval(this.carrotBlinkingIntervalAppear);
+        clearInterval(this.carrotBlinkingIntervalDisppear);
     }
     updateTimerText(time) {
         const minutes = Math.floor(time / 60);
@@ -146,9 +154,34 @@ class Game {
     init() {
         this.score = 0;
         this.gameScore.innerText = this.carrotCount;
+        this.gameLevel.innerText = `LEVEL${this.level}`;
         this.gameField.init();
     }
     updateScoreBoard() {
         this.gameScore.innerText = this.carrotCount - this.score;
+    }
+    gameLevel2() {
+        const carrots = document.querySelectorAll('.carrot');
+        this.carrotBlinkingIntervaldisAppear = setInterval(() => {
+            if (!this.started || this.level !== 2) {
+                clearInterval(this.carrotBlinkingIntervalDisAppear);
+                carrots.forEach((carrot) => {
+                    carrot.style.visibility = 'visible'
+                })
+                return;
+            }
+            carrots.forEach((carrot) => {
+                carrot.style.visibility = 'hidden'
+            })
+        }, 1000);
+        this.carrotBlinkingIntervalAppear = setInterval(() => {
+            if (!this.started || this.level !== 2) {
+                clearInterval(this.carrotBlinkingIntervalAppear);
+                return;
+            }
+            carrots.forEach((carrot) => {
+                carrot.style.visibility = 'visible'
+            })
+        }, 2000);
     }
 }
